@@ -47,4 +47,9 @@ $ poetry run python main.py # Run app
 $ poetry add <some dependency>
 ```
 
+## 2.2. Import .venv
+1. From `VS Code`, press `Ctrl + Shift + P` to open Python Interpreter
+2. Choose `.venv` dir
+
+
 <br>

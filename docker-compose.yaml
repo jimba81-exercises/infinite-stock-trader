@@ -14,7 +14,11 @@ services:
     #  - ${ENV_FILE_PATH:-docker_volume/.env}
     network_mode: host
     volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /tmp/.X11-unix:/tmp/.X11-unix    
       - ~/.bash_history:/home/user/.bash_history
+      - ~/.Xauthority:/home/user/.Xauthority
       - ./workspace:/home/user/workspace
       - ./docker-volumes:/home/user/docker-volumes
 

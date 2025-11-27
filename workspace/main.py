@@ -1,27 +1,24 @@
 import sys
-from alpaca.trading.client import TradingClient
-from alpaca.trading.requests import GetAssetsRequest
+from src.trader import Trader
 
-# For GUI apps (PyQt, Tkinter, etc.)
+
+
+
+#==============================
+# CONSTANTS
+ENV_FILE_PATH = '../docker-volumes/.env'
+
+
+#==============================
+# APP
 class App:
     def __init__(self):
-        pass
+        self.trader = Trader(ENV_FILE_PATH)
+        self.trader.connect()
     
     def run(self):
-        api_key = 'CKCWQMTREGA3WJF7225HNCS2P6'
-        secret_key = '7dssGxumLDubdRr6Ymgi6pJkNVRPk2TZBqii1hXtUSkU'
-        trading_client = TradingClient(api_key, secret_key)
-
-        # Get our account information.
-        account = trading_client.get_account()
-
-        # Check if our account is restricted from trading.
-        if account.trading_blocked:
-            print('Account is currently restricted from trading.')
-
-        # Check how much money we can use to open new positions.
-        print('${} is available as buying power.'.format(account.buying_power))
-        return self.app.exec()  # or sys.exit(app.exec())
+        # Main application logic here
+        pass
     
 
 
