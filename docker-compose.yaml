@@ -10,13 +10,13 @@ services:
       dockerfile: ./docker/dev.dockerfile
     stdin_open: true
     tty: true
-    env_file:
-      - ${ENV_FILE_PATH:-docker_volume/.env}
+    #env_file:
+    #  - ${ENV_FILE_PATH:-docker_volume/.env}
     network_mode: host
     volumes:
-      - ~/.bash_history:/home/node/.bash_history
-      - ./workspace:/home/node/workspace
-      - ./docker-volumes:/home/node/docker-volumes
+      - ~/.bash_history:/home/user/.bash_history
+      - ./workspace:/home/user/workspace
+      - ./docker-volumes:/home/user/docker-volumes
 
   
 # Commands

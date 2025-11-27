@@ -34,3 +34,17 @@ Automatic Infinite Stock Trader using Dollar-Cost Averaging algorithm
 <br>
 
 # 2. Setup Project
+## 2.1. Init Poetry Project
+>Reference: https://python-poetry.org/docs/cli/
+```sh
+$ poetry --version ## Ensure poetry works and version is returned
+$ cd ${WORKSPACE}
+$ rm -rf ./venv # Ensure exsitng ./venv is clear
+$ poetry init # Init Poetry project, set params (e.g. package name)
+
+$ poetry run python main.py # Run app
+
+$ poetry add <some dependency>
+```
+
+<br>
