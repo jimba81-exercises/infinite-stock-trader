@@ -1,0 +1,44 @@
+version: "3.8"
+name: infinite-stock-trader
+
+services:
+  dev:
+    image: infinite-stock-trader-dev:${IMG_TAG:-latest}
+    container_name: infinite-stock-trader-dev
+    build:
+      context: .
+      dockerfile: ./docker/dev.dockerfile
+    stdin_open: true
+    tty: true
+    #env_file:
+    #  - ${ENV_FILE_PATH:-docker_volume/.env}
+    network_mode: host
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /tmp/.X11-unix:/tmp/.X11-unix    
+      - ~/.bash_history:/home/user/.bash_history
+      - ~/.Xauthority:/home/user/.Xauthority
+      - ./workspace:/home/user/workspace
+      - ./docker-volumes:/home/user/docker-volumes
+
+  
+# Commands
+
+# PREPARE
+# Set envfile path:    > export ENV_FILE_PATH=<env file path>
+
+# BUILD
+# - Build:             > docker compose build
+# - Build with args:   > docker compose build --build-arg NODE_VERSION="16.14.2"
+# - Build Clean:       > docker compose build --no-cache
+
+# RUN DEV CONTAINER
+# - Run Dev:           > docker compose run --service-ports --rm dev bash
+# - Run Dev with env:  > ENV_FILE_PATH=./env/.dev.env docker compose run -e HOST_USER_ID=<user> -e HOST_USER_PWD=<pwd> --service-ports --rm dev bash
+
+# RUN PROD
+# - Run with rm:       > docker compose run --rm prod 
+# - Run :              > docker compose up 
+# - Run envfile:       > docker compose --env-file $ENV_FILE_PATH
+# - Stop Rel:          > docker compose down
