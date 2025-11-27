@@ -1,0 +1,3 @@
+# Everything except example.env
+*
+!example.env
