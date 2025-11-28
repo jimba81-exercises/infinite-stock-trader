@@ -55,7 +55,7 @@ jobs:
       #       exit 1
       #     fi
 
-      - name: Run trading script
+      - name: Run Main App
         working-directory: ./workspace
         # env:
         #   ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
@@ -75,4 +75,3 @@ jobs:
       #       }
       #   env:
       #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      
