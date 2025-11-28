@@ -7,6 +7,9 @@ on:
     - cron: "55 20,21 * * 1-5"  # 4:55 PM EDT / 4:55 PM EST (covers both)
   workflow_dispatch:         
     # allow manual run
+  push:
+    branches:
+      - epic/v0.1   
 
 permissions:
   contents: read
@@ -45,30 +48,31 @@ jobs:
         working-directory: ./workspace
         run: poetry install --no-interaction --no-root --sync
 
-      - name: Validate required secrets
-        run: |
-          if [ -z "${{ secrets.ALPACA_API_KEY }}" ] || [ -z "${{ secrets.ALPACA_API_SECRET }}" ]; then
-            echo "ALPACA_API_KEY or ALPACA_API_SECRET is missing!" >&2
-            exit 1
-          fi
+      # - name: Validate required secrets
+      #   run: |
+      #     if [ -z "${{ secrets.ALPACA_API_KEY }}" ] || [ -z "${{ secrets.ALPACA_API_SECRET }}" ]; then
+      #       echo "ALPACA_API_KEY or ALPACA_API_SECRET is missing!" >&2
+      #       exit 1
+      #     fi
 
       - name: Run trading script
         working-directory: ./workspace
-        env:
-          ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
-          ALPACA_API_SECRET: ${{ secrets.ALPACA_API_SECRET }}
-          ALPACA_PAPER_MODE: ${{ secrets.ALPACA_PAPER_MODE || (inputs.paper == 'true' && 'true') || 'false' }}
+        # env:
+        #   ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
+        #   ALPACA_API_SECRET: ${{ secrets.ALPACA_API_SECRET }}
+        #   ALPACA_PAPER_MODE: ${{ secrets.ALPACA_PAPER_MODE || (inputs.paper == 'true' && 'true') || 'false' }}
           # Optional: add logging or debug flags
           # LOG_LEVEL: INFO
         run: poetry run python main.py
 
-      - name: Notify on failure (optional but recommended)
-        if: failure()
-        uses: slackapi/slack-github-action@v1.26.0
-        with:
-          payload: |
-            {
-              "text": ":rotating_light: *Infinite Stock Trader failed!* \nWorkflow: ${{ github.workflow }} \nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      # - name: Notify on failure (optional but recommended)
+      #   if: failure()
+      #   uses: slackapi/slack-github-action@v1.26.0
+      #   with:
+      #     payload: |
+      #       {
+      #         "text": ":rotating_light: *Infinite Stock Trader failed!* \nWorkflow: ${{ github.workflow }} \nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+      #       }
+      #   env:
+      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      
