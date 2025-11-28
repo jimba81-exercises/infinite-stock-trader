@@ -35,3 +35,17 @@ class Trader:
     print(f" BuyingPower   : ${account.buying_power}")
     print(f" Trading State : {'BLOCKED' if account.trading_blocked else 'READY'}")
     print(f"")
+
+
+    """ 
+# Create LOC (Limit On Close) order
+order = OrderRequest(
+    symbol="AAPL",           # Stock symbol
+    qty=10,                  # Number of shares
+    side=OrderSide.BUY,      # BUY or SELL
+    type=OrderType.LIMIT,    # Limit order
+    time_in_force=TimeInForce.CLS,  # LOC order
+    limit_price=170.50       # Limit price to buy at market close
+)    
+    """
+    
