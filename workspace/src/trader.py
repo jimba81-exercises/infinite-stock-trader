@@ -7,13 +7,18 @@ from alpaca.trading.requests import GetAssetsRequest
 
 class Trader:
   def __init__(self, env_path: str):
+    # TODO: Get from ENV not from file. This is to run from cloud server.
+    """
     load_dotenv(env_path)
     self.__paper_mode = os.getenv('ALPACA_PAPER_MODE', 'True').strip() == 'True'
     self.__api_key = os.getenv('ALPACA_API_KEY')
     self.__secret_key = os.getenv('ALPACA_API_SECRET')
     self.__trading_client = None
+    """
     
   def connect(self):
+    # TODO: Implement with ENV
+    return
     self.__trading_client = TradingClient(
         self.__api_key, 
         self.__secret_key,

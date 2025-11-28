@@ -9,7 +9,8 @@ readme = "README.md"
 requires-python = ">=3.11,<4.0.0"
 dependencies = [
     "alpaca-py (>=0.43.2,<0.44.0)",
-    "python-dotenv (>=1.0.0,<2.0.0)"
+    "python-dotenv (>=1.0.0,<2.0.0)",
+    "toml (>=0.10.2,<0.11.0)"
 ]
 
 
