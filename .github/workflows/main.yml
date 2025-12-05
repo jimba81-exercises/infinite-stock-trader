@@ -3,8 +3,8 @@ name: Infinite Stock Trader - Daily Trading
 # Run Mon–Fri at 4:55 PM Eastern Time (which is 21:55 UTC standard time / 20:55 UTC during DST)
 # Note: GitHub Actions always uses UTC. EST = UTC-5, EDT = UTC-4
 on:
-  schedule:
-    - cron: "55 20,21 * * 1-5"  # 4:55 PM EDT / 4:55 PM EST (covers both)
+  #schedule:
+  #  - cron: "55 20,21 * * 1-5"  # 4:55 PM EDT / 4:55 PM EST (covers both)
   workflow_dispatch:         
     # allow manual run
 
