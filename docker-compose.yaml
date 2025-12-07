@@ -35,7 +35,7 @@ services:
 
 # RUN DEV CONTAINER
 # - Run Dev:           > docker compose run --service-ports --rm dev bash
-# - Run Dev with env:  > ENV_FILE_PATH=./env/.dev.env docker compose run -e HOST_USER_ID=<user> -e HOST_USER_PWD=<pwd> --service-ports --rm dev bash
+# - Run Dev with env:  > ENV_FILE_PATH=./env/.dev.env docker compose run --service-ports --rm dev bash
 
 # RUN PROD
 # - Run with rm:       > docker compose run --rm prod 
