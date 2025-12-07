@@ -3,5 +3,6 @@
 ## [Early Research](./docs/README-EarlyResearch.md)
 ## [Project Setup](./docs/README-ProjectSetup.md)
 ## [Architecture](./docs/README-Architecture.md)
+## [Trading Algorithms](./docs/README-TradingAlgorithms.md)
 
 <br>

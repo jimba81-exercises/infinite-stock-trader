@@ -1,0 +1,82 @@
+name: Infinite Stock Trader - Daily Trading
+
+# Run Mon–Fri at 4:55 PM Eastern Time (which is 21:55 UTC standard time / 20:55 UTC during DST)
+# Note: GitHub Actions always uses UTC. EST = UTC-5, EDT = UTC-4
+on:
+  schedule:
+      # 1. Submit LOC order at 10:00 AM EST
+      - cron: "0 15 * * 1-5"  # 15:00 UTC = 10:00 EST, Monday to Friday
+      # 2. Check LOC order execution at 4:30 PM EST - Maybe not needed!!
+      #- cron: "30 21 * * 1-5"  # 21:30 UTC = 16:30 EST, Monday to Friday
+  workflow_dispatch:         
+    # allow manual run
+  push:
+    branches:
+      - epic/v0.1   
+
+permissions:
+  contents: read
+
+jobs:
+  trade:
+    name: Execute Daily Trading Strategy
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Cache Poetry virtual environment
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pypoetry
+            ./workspace/.venv
+          key: poetry-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            poetry-${{ runner.os }}-
+
+      - name: Install project dependencies
+        working-directory: ./workspace
+        run: poetry install --no-interaction --no-root --sync
+
+      # - name: Validate required secrets
+      #   run: |
+      #     if [ -z "${{ secrets.ALPACA_API_KEY }}" ] || [ -z "${{ secrets.ALPACA_API_SECRET }}" ]; then
+      #       echo "ALPACA_API_KEY or ALPACA_API_SECRET is missing!" >&2
+      #       exit 1
+      #     fi
+
+      - name: Run Main App
+        working-directory: ./workspace
+        # env:
+        #   ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
+        #   ALPACA_API_SECRET: ${{ secrets.ALPACA_API_SECRET }}
+        #   ALPACA_PAPER_MODE: ${{ secrets.ALPACA_PAPER_MODE || (inputs.paper == 'true' && 'true') || 'false' }}
+          # Optional: add logging or debug flags
+          # LOG_LEVEL: INFO
+        run: poetry run python main.py
+
+      # - name: Notify on failure (optional but recommended)
+      #   if: failure()
+      #   uses: slackapi/slack-github-action@v1.26.0
+      #   with:
+      #     payload: |
+      #       {
+      #         "text": ":rotating_light: *Infinite Stock Trader failed!* \nWorkflow: ${{ github.workflow }} \nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+      #       }
+      #   env:
+      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      
+
