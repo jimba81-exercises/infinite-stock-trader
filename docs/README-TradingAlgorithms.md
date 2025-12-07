@@ -30,7 +30,7 @@ The app can automatically execute scheduled trades using the selected algorithms
 ## 3.1. Abstraction
 **RaoR’s Infinite Buying Strategy** is a systematic method of continuously buying a fixed amount of shares at regular intervals, regardless of market conditions, to steadily build a long-term position and take advantage of price fluctuations.
 
-### 3.2. Parameters
+## 3.2. Parameters
 
 | Parameter | Description | Type | Example (Default First) |
 |-----------|-------------|------|---------|
@@ -40,14 +40,14 @@ The app can automatically execute scheduled trades using the selected algorithms
 | Stock Code | Ticker symbol of the stock or ETF to purchase | Ticker Symbol | TQQQ, SOXL |
 | Target Margin | Desired profit margin (% above average cost) at which to sell all shares | % | 10, 20
 
-### 3.3. Algorithm
-#### 3.3.1. First Day Setup
+## 3.3. Algorithm
+### 3.3.1. First Day Setup
 1. Prepare `Initial Deposit` to the trading fund pool.
 2. Set `Split`, `Interval`, evaluate `Single Trade Budget`
 3. Select `Stock Code`
 4. Buy Stock(s) with `Single Trade Budget` using a Limit-On-Close(LOC) order at any time of the day.
 
-#### 3.3.2. Trading
+### 3.3.2. Trading
 >**NOTE:** Trading occurs every `Interval`(days) at 10am (few moment after market open, LOC order is allowed)
 1. If **All Stocks Sold**, execute `First Day Setup` and complete for the day.
 2. Create **BUY** Order
@@ -59,6 +59,10 @@ The app can automatically execute scheduled trades using the selected algorithms
     - Price: **Average Cost** + (100 + `Target Margin`)%
     - Type: LOC
     - Amount: **ALL**
+
+## Backtest
+- Backtest is executed and result is shown in [here](./JyooBacktest20251206.pdf)
+- The Infinite Buying Strategy is **NOT** really better off than conventional stratgies such as ``LSI`` or ``DCA``.
 
 
 
